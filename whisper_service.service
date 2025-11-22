@@ -1,0 +1,25 @@
+[Unit]
+Description=Whisper Server
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=skh
+WorkingDirectory=/home/skh
+ExecStart=/home/skh/aicomrad-whisper-gpu-daemon/build/whisper_service \
+	--model /home/skh/aicomrad-whisper-gpu-daemon/models/ggml-large-v3-turbo.bin 
+
+
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Ограничения ресурсов (опционально)
+LimitMEMLOCK=infinity
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
